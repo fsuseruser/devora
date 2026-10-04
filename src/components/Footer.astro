@@ -1,0 +1,69 @@
+---
+import Logo from './Logo.astro';
+import Mark from './Mark.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+const year = new Date().getFullYear();
+---
+<footer class="relative overflow-hidden bg-ink text-paper" data-tone="dark">
+  <div class="wrap pt-24 pb-10 md:pt-32">
+    <div class="grid gap-14 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="label text-bronze-light">Have a project in mind?</p>
+        <a href="/contact/" class="footer-cta mt-5 block h-md max-w-[14ch]" data-cursor="link">
+          Let’s make it <span class="serif text-bronze-light">extraordinary.</span>
+          <span class="footer-arrow">→</span>
+        </a>
+        <a href={`mailto:${site.email}`} class="ulink mt-8 inline-block text-lg text-paper/80">{site.email}</a>
+      </div>
+      <div class="grid grid-cols-2 gap-10 md:col-span-7 md:grid-cols-3">
+        <div>
+          <p class="label mb-5 text-paper/45">Services</p>
+          <ul class="space-y-2.5 text-[0.95rem] text-paper/80">
+            {services.map((s) => <li><a class="ulink" href={`/services/${s.slug}/`}>{s.title.replace(' & CRM Integration', ' & CRM')}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <p class="label mb-5 text-paper/45">Studio</p>
+          <ul class="space-y-2.5 text-[0.95rem] text-paper/80">
+            {site.nav.map((n) => <li><a class="ulink" href={n.href}>{n.label}</a></li>)}
+            {site.social.map((s) => <li><a class="ulink" href={s.href} target="_blank" rel="noopener">{s.label} ↗</a></li>)}
+          </ul>
+        </div>
+        <div class="col-span-2 md:col-span-1">
+          <p class="label mb-5 text-paper/45">Visit</p>
+          <address class="not-italic text-[0.95rem] leading-relaxed text-paper/80">
+            {site.address.line1}<br />{site.address.city}<br />{site.address.country}
+          </address>
+          <p class="mt-5 text-[0.95rem] text-paper/80"><a class="ulink" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></p>
+          <p class="label mt-6 text-paper/45">Local time</p>
+          <p class="mt-1 font-mono text-sm text-paper/80"><span data-clock>--:--</span> GST</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-mega relative mt-24 select-none md:mt-32" aria-hidden="true">
+      <div class="flex items-end justify-between">
+        <Logo class="footer-logo" co={false} />
+        <Mark class="footer-mark hidden w-[7vw] text-paper md:block" weight={30} />
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-4 border-t border-paper/10 pt-6 text-sm text-paper/50 md:flex-row md:items-center md:justify-between">
+      <p>© {year} {site.name} · {site.tagline}</p>
+      <div class="flex gap-6">
+        <a class="ulink" href="/privacy/">Privacy</a>
+        <a class="ulink" href="/terms/">Terms</a>
+        <button type="button" class="ulink" data-scroll-top>Back to top ↑</button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-cta { position: relative; transition: color 0.4s; }
+  .footer-arrow { display: inline-block; margin-left: 0.2em; transition: transform 0.6s var(--ease-out-expo); }
+  .footer-cta:hover .footer-arrow { transform: translateX(0.2em) rotate(-45deg); }
+  .footer-mega :global(.footer-logo) { font-size: clamp(3rem, 15.2vw, 16.5rem); letter-spacing: 0.06em; color: var(--color-paper); font-weight: 500; }
+  .footer-mark :global(.mark-ring) { transform-origin: center; }
+</style>

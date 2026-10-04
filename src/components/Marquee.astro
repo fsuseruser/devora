@@ -1,0 +1,24 @@
+---
+import Mark from './Mark.astro';
+interface Props { items: string[]; class?: string; speed?: number }
+const { items, class: cls = '', speed = 40 } = Astro.props;
+const row = [...items, ...items];
+---
+<div class:list={['mq overflow-hidden whitespace-nowrap', cls]} data-marquee={speed} aria-hidden="true">
+  <div class="mq-track inline-flex">
+    {[0, 1].map(() => (
+      <div class="inline-flex shrink-0 items-center">
+        {row.map((t) => (
+          <span class="mq-item inline-flex items-center">
+            <span>{t}</span>
+            <Mark class="mq-mark mx-[0.45em] h-[0.5em] w-[0.5em]" weight={30} />
+          </span>
+        ))}
+      </div>
+    ))}
+  </div>
+</div>
+<style>
+  .mq-item:nth-child(even) span { font-family: var(--font-serif); font-style: italic; letter-spacing: -0.01em; }
+  html:not(.motion) .mq-track { animation: none; }
+</style>

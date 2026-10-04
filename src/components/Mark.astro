@@ -1,0 +1,18 @@
+---
+/** DEVORA orbit mark — ring + satellite dot. `weight` = ring thickness (viewBox units). */
+interface Props { class?: string; weight?: number; ring?: string; dot?: string; title?: string }
+const { class: cls = '', weight = 30, ring = 'currentColor', dot = 'var(--color-bronze-light)', title } = Astro.props;
+const R = 80 - weight / 2;
+const d = R * Math.SQRT1_2;
+const id = 'm' + Math.random().toString(36).slice(2, 8);
+---
+<svg class={cls} viewBox="-85 -85 170 170" role={title ? 'img' : undefined} aria-hidden={title ? undefined : 'true'} aria-label={title}>
+  <defs>
+    <mask id={id} maskUnits="userSpaceOnUse" x="-85" y="-85" width="170" height="170">
+      <rect x="-85" y="-85" width="170" height="170" fill="#fff" />
+      <circle cx={d} cy={-d} r={weight * 0.92} fill="#000" />
+    </mask>
+  </defs>
+  <g class="mark-ring" mask={`url(#${id})`}><circle r={R} fill="none" stroke={ring} stroke-width={weight} /></g>
+  <circle class="mark-dot" cx={d} cy={-d} r={weight * 0.54} fill={dot} />
+</svg>

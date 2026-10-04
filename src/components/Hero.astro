@@ -1,0 +1,62 @@
+---
+import { site } from '../data/site';
+const { hero } = site;
+---
+<section class="hero relative" data-hero data-tone="light">
+  <div class="hero-pin relative flex h-svh flex-col overflow-hidden bg-paper">
+    <div class="hero-top wrap flex flex-col gap-4 pt-24 md:flex-row md:items-start md:justify-between md:pt-28">
+      <p class="label flex items-center gap-2 text-muted"><span class="inline-block h-1.5 w-1.5 rounded-full bg-bronze"></span>{hero.eyebrow}</p>
+      <p class="max-w-[34ch] text-[0.98rem] leading-snug text-ink/75 md:text-[1.05rem]">{hero.intro}</p>
+    </div>
+
+    <h1 class="hero-title wrap display mt-4 md:mt-2" data-lines>
+      <span class="line-mask"><span>{hero.lines[0]}</span></span>
+      <span class="line-mask"><span class="md:pl-[0.9em]">the <span class="serif text-forest">ordinary.</span></span></span>
+    </h1>
+
+    <div class="hero-frames wrap relative mt-4 mb-5 flex min-h-0 flex-1 items-center justify-center md:items-end portrait:items-center gap-3 md:mt-6 md:mb-8 md:gap-4">
+      <div class="hf hf-left"><div class="hf-inner frame h-full w-full"><img src={hero.frames.left.src} alt={hero.frames.left.alt} width="1000" height="1400" fetchpriority="high" /></div></div>
+      <div class="hf-slot" aria-hidden="true"></div>
+      <div class="hf hf-right"><div class="hf-inner frame h-full w-full"><img src={hero.frames.right.src} alt={hero.frames.right.alt} width="1000" height="1400" /></div></div>
+    </div>
+
+    <div class="hero-full absolute inset-0 z-10">
+      <div class="hero-full-inner h-full w-full overflow-hidden bg-ink">
+        <img class="h-full w-full object-cover" src={hero.frames.center.src} alt={hero.frames.center.alt} width="1920" height="1080" fetchpriority="high" />
+      </div>
+      <div class="hero-shade pointer-events-none absolute inset-0"></div>
+      <div class="hero-full-copy wrap pointer-events-none absolute inset-x-0 bottom-0 pb-10 text-paper md:pb-14">
+        <div class="grid gap-8 md:grid-cols-12 md:items-end">
+          <p class="h-lg display md:col-span-8">
+            <span class="line-mask"><span>Websites, applications</span></span>
+            <span class="line-mask"><span>&amp; systems — built <span class="serif text-bronze-light">beyond</span></span></span>
+            <span class="line-mask"><span>the ordinary.</span></span>
+          </p>
+          <div class="md:col-span-4 md:justify-self-end" data-hfade>
+            <p class="max-w-[32ch] text-paper/75">Designed and engineered in {site.address.city} for ambitious companies across the region.</p>
+            <p class="label mt-6 flex items-center gap-3 text-paper/60"><span class="scroll-cue"></span>Keep scrolling</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-title { font-size: clamp(3.2rem, min(12.4vw, 18.5svh), 13.5rem); position: relative; z-index: 1; }
+  @media (max-width: 767px) { .hero-title { font-size: min(17.5vw, 11svh); } }
+  .hero-frames { --fh: 36svh; }
+  .hf, .hf-slot { height: var(--fh); flex: none; }
+  .hf { width: calc(var(--fh) * 0.8); will-change: transform; }
+  .hf-slot { width: calc(var(--fh) * 1.6); }
+  .hf-inner { border-radius: 4px; }
+  .hf-inner img, .hero-full-inner img { will-change: transform; }
+  .hero-shade { opacity: 0; background: linear-gradient(180deg, rgb(10 12 11 / 0.15) 0%, rgb(10 12 11 / 0.05) 35%, rgb(10 12 11 / 0.82) 100%); }
+  html:not(.motion) .hero-full { clip-path: none; position: relative; height: 70svh; }
+  html:not(.motion) .hero-shade { opacity: 1; }
+  html:not(.motion) .hero-pin { height: auto; }
+  html:not(.motion) .hf-slot { display: none; }
+  .scroll-cue { position: relative; width: 1px; height: 28px; background: rgb(243 239 228 / 0.25); overflow: hidden; }
+  .scroll-cue::after { content: ''; position: absolute; inset: 0; background: var(--color-bronze-light); animation: cue 1.8s var(--ease-in-out-quart) infinite; }
+  @keyframes cue { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(100%); } }
+</style>

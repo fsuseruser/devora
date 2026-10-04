@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import SectionHead from '../components/SectionHead.astro';
+import WorkCard from '../components/WorkCard.astro';
+import ServicesIndex from '../components/ServicesIndex.astro';
+import Process from '../components/Process.astro';
+import Principles from '../components/Principles.astro';
+import Marquee from '../components/Marquee.astro';
+import CTA from '../components/CTA.astro';
+import { site } from '../data/site';
+import { projects } from '../data/projects';
+import { services } from '../data/services';
+const featured = projects.slice(0, 4);
+---
+<Base loader>
+  <Hero />
+
+  <!-- 01 · Statement -->
+  <section class="relative bg-paper py-28 md:py-40" data-tone="light">
+    <div class="wrap grid gap-12 md:grid-cols-12">
+      <div class="md:col-span-3"><SectionHead index="01" label="The studio" /></div>
+      <div class="md:col-span-9">
+        <p class="h-md max-w-[24ch] !leading-[1.08] md:!text-[3.4rem]" data-words>
+          We are DEVORA &amp; Co. — a digital studio for companies that expect <span class="serif text-forest">more.</span> {site.statement}
+        </p>
+        <div class="mt-14 grid gap-10 md:grid-cols-2">
+          <p class="text-ink/70" data-reveal>Strategy, design and engineering sit in one room. That means fewer hand-offs, faster decisions and products that stay true to the idea from first sketch to launch day.</p>
+          <div data-reveal>
+            <a href="/about/" class="btn btn-dark" data-magnetic>About the studio <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap mt-24 md:mt-32">
+      <div class="grid grid-cols-2 border-t border-ink/15 md:grid-cols-4">
+        {site.stats.map((s, i) => (
+          <div class:list={['py-8 pr-6 md:py-10', i > 0 && 'md:border-l md:border-ink/15 md:pl-8', i % 2 === 1 && 'border-l border-ink/15 pl-6']} data-reveal>
+            <p class="text-[3rem] font-medium leading-none tracking-[-0.05em] md:text-[4.6rem]" data-count={s.value}>{s.value}</p>
+            <p class="mt-3 max-w-[22ch] text-sm text-muted">{s.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · Selected work -->
+  <section class="relative bg-paper pb-28 md:pb-40" data-tone="light">
+    <div class="wrap">
+      <div class="mb-14 flex flex-col gap-8 md:mb-20 md:flex-row md:items-end md:justify-between">
+        <div>
+          <SectionHead index="02" label="Selected work" />
+          <h2 class="h-xl display mt-6" data-lines>
+            <span class="line-mask"><span>Work that</span></span>
+            <span class="line-mask"><span><span class="serif text-forest">speaks</span> first.</span></span>
+          </h2>
+        </div>
+        <a href="/work/" class="btn btn-line self-start md:self-auto" data-reveal data-magnetic>All projects ({projects.length}) <span class="arrow">→</span></a>
+      </div>
+      <div class="grid gap-x-8 gap-y-16 md:grid-cols-12 md:gap-y-28">
+        <WorkCard project={featured[0]} index={0} class="md:col-span-7" aspect="aspect-[16/11]" />
+        <WorkCard project={featured[1]} index={1} class="md:col-span-5 md:mt-48" aspect="aspect-[16/11]" />
+        <WorkCard project={featured[2]} index={2} class="md:col-span-5" aspect="aspect-[16/11]" />
+        <WorkCard project={featured[3]} index={3} class="md:col-span-7 md:mt-32" aspect="aspect-[16/11]" />
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-ink/10 bg-paper py-8 md:py-10" data-tone="light">
+    <Marquee items={services.map((s) => s.title.replace(' & CRM Integration', ' & CRM'))} class="text-[2.6rem] font-medium tracking-[-0.04em] md:text-[5.5rem]" />
+  </section>
+
+  <!-- 03 · Services -->
+  <section class="relative bg-paper py-28 md:py-40" data-tone="light">
+    <div class="wrap">
+      <div class="mb-14 grid gap-8 md:mb-20 md:grid-cols-12">
+        <div class="md:col-span-7">
+          <SectionHead index="03" label="Services" />
+          <h2 class="h-xl display mt-6" data-lines>
+            <span class="line-mask"><span>One studio,</span></span>
+            <span class="line-mask"><span>six <span class="serif text-forest">disciplines.</span></span></span>
+          </h2>
+        </div>
+        <div class="flex flex-col justify-end gap-6 md:col-span-4 md:col-start-9">
+          <p class="text-ink/70" data-reveal>From the first impression to the systems behind it, we cover the full digital stack — so everything works together, beautifully.</p>
+          <a href="/services/" class="ulink self-start font-medium" data-reveal>Explore all services →</a>
+        </div>
+      </div>
+      <ServicesIndex />
+    </div>
+  </section>
+
+  <!-- 04 · Process -->
+  <Process />
+
+  <!-- 05 · Principles -->
+  <section class="bg-paper py-28 md:py-40" data-tone="light">
+    <div class="wrap">
+      <div class="mb-14 grid gap-8 md:mb-20 md:grid-cols-12">
+        <div class="md:col-span-7">
+          <SectionHead index="05" label="Why DEVORA" />
+          <h2 class="h-xl display mt-6" data-lines>
+            <span class="line-mask"><span>Ordinary is</span></span>
+            <span class="line-mask"><span>not an <span class="serif text-forest">option.</span></span></span>
+          </h2>
+        </div>
+      </div>
+      <Principles />
+    </div>
+  </section>
+
+  <CTA />
+</Base>

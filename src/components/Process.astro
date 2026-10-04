@@ -1,0 +1,50 @@
+---
+import { site } from '../data/site';
+import SectionHead from './SectionHead.astro';
+---
+<section class="process relative overflow-hidden bg-ink text-paper" data-hscroll data-tone="dark">
+  <div class="process-inner flex min-h-svh flex-col justify-center py-24 md:h-svh md:py-0">
+    <div class="wrap mb-10 flex flex-col gap-6 md:mb-14 md:flex-row md:items-end md:justify-between">
+      <div>
+        <SectionHead index="04" label="How we work" dark />
+        <h2 class="h-lg display mt-6" data-lines>
+          <span class="line-mask"><span>A process built</span></span>
+          <span class="line-mask"><span>for <span class="serif text-bronze-light">certainty.</span></span></span>
+        </h2>
+      </div>
+      <p class="max-w-[38ch] text-paper/65" data-reveal>Four deliberate stages, one accountable team. You always know what is happening, what comes next, and why.</p>
+    </div>
+    <div class="hs-viewport">
+      <div class="hs-track flex flex-col gap-5 px-[clamp(1rem,3.2vw,3rem)] md:w-max md:flex-row md:gap-6" data-hs-track>
+        {site.process.map((p) => (
+          <article class="hs-card relative flex flex-col overflow-hidden rounded-[6px] border border-paper/10 bg-ink-2 md:h-[58svh] md:w-[min(44vw,620px)] md:flex-row" data-hs-card>
+            <div class="flex flex-1 flex-col justify-between p-6 md:p-8">
+              <div class="flex items-center justify-between">
+                <span class="label text-bronze-light">Stage {p.n}</span>
+                <span class="hs-dot h-2 w-2 rounded-full bg-paper/25"></span>
+              </div>
+              <div class="mt-10 md:mt-0">
+                <h3 class="hs-title text-[2.2rem] font-medium tracking-[-0.04em] md:text-[3.2rem]">{p.title}</h3>
+                <p class="mt-3 max-w-[30ch] text-paper/65">{p.text}</p>
+              </div>
+            </div>
+            <div class="hs-img frame aspect-[16/10] md:aspect-auto md:w-[46%]"><img src={p.image} alt="" loading="lazy" width="1600" height="1100" /></div>
+          </article>
+        ))}
+        <div class="hidden w-[10vw] shrink-0 md:block"></div>
+      </div>
+    </div>
+    <div class="wrap mt-10 hidden md:block">
+      <div class="h-px w-full bg-paper/10"><div class="h-px origin-left scale-x-0 bg-bronze-light" data-hs-bar></div></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hs-card { transition: border-color 0.6s, background-color 0.6s; }
+  .hs-img img { filter: grayscale(1) brightness(0.7); transform: scale(1.08); transition: filter 1s var(--ease-out-expo), transform 1.4s var(--ease-out-expo); }
+  .hs-card.is-active, .hs-card:hover { border-color: rgb(194 155 114 / 0.45); background: var(--color-forest); }
+  .hs-card.is-active .hs-img img, .hs-card:hover .hs-img img { filter: none; transform: scale(1); }
+  .hs-card.is-active .hs-dot { background: var(--color-bronze-light); box-shadow: 0 0 0 6px rgb(194 155 114 / 0.18); }
+  @media (max-width: 767px) { .hs-img img { filter: none; transform: none; } }
+</style>

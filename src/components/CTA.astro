@@ -1,0 +1,27 @@
+---
+import Mark from './Mark.astro';
+interface Props { title?: string; accent?: string; text?: string }
+const { title = 'Ready to go', accent = 'beyond the ordinary?', text = 'Tell us where you want to be. We’ll show you how to get there — with a clear plan, timeline and investment within 48 hours.' } = Astro.props;
+---
+<section class="cta relative overflow-hidden bg-forest text-paper" data-tone="dark">
+  <img src="/images/site/cta.jpg" alt="" class="absolute inset-0 h-full w-full object-cover opacity-35 mix-blend-luminosity" loading="lazy" width="1920" height="1080" />
+  <div class="absolute inset-0 bg-gradient-to-b from-forest/40 via-forest/70 to-forest"></div>
+  <Mark class="cta-mark pointer-events-none absolute -right-[12vw] -top-[10vw] w-[52vw] text-paper/[0.06]" weight={18} dot="rgb(194 155 114 / 0.25)" />
+  <div class="wrap relative py-28 md:py-40">
+    <p class="label text-bronze-light" data-reveal>Start a project</p>
+    <h2 class="h-xl display mt-6 max-w-[14ch]" data-lines>
+      <span class="line-mask"><span>{title}</span></span>
+      <span class="line-mask"><span class="serif text-bronze-light">{accent}</span></span>
+    </h2>
+    <div class="mt-12 flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+      <p class="max-w-[42ch] text-lg text-paper/70" data-reveal>{text}</p>
+      <div class="flex flex-wrap gap-3" data-reveal>
+        <a href="/contact/" class="btn btn-light !px-8 !py-5 text-base" data-magnetic>Book a discovery call <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .cta :global(.cta-mark) { animation: spin 60s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>

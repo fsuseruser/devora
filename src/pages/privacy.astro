@@ -1,0 +1,15 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site } from '../data/site';
+---
+<Legal title="Privacy Policy" updated="October 2026">
+  <p>This template policy explains how {site.name} handles personal information. Please have it reviewed by a legal professional and adapted to your practices, including obligations under the UAE Personal Data Protection Law (Federal Decree-Law No. 45 of 2021), before publishing.</p>
+  <h2>Information we collect</h2>
+  <ul><li>Details you submit through our contact form, such as name, email, phone and project information.</li><li>Basic analytics data such as pages visited and device type, collected in aggregate.</li></ul>
+  <h2>How we use it</h2>
+  <p>We use your information only to respond to enquiries, deliver our services and improve this website. We do not sell personal data.</p>
+  <h2>Retention & security</h2>
+  <p>We keep information only as long as necessary and protect it with appropriate technical and organisational measures.</p>
+  <h2>Your rights</h2>
+  <p>You may request access to, correction of or deletion of your personal data at any time by emailing <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</Legal>

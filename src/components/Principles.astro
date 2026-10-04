@@ -1,0 +1,31 @@
+---
+import { site } from '../data/site';
+import Mark from './Mark.astro';
+---
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+  {site.principles.map((p, i) => (
+    <article class="pc group relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-[6px] border border-ink/12 p-7 md:min-h-[420px]" data-reveal>
+      <div class="flex items-start justify-between">
+        <span class="label pc-n">0{i + 1}</span>
+        <Mark class="pc-mark h-10 w-10" weight={26} />
+      </div>
+      <div class="relative">
+        <h3 class="text-[1.6rem] font-medium leading-[1.05] tracking-[-0.035em] md:text-[1.9rem]">{p.title}</h3>
+        <p class="pc-text mt-3 text-[0.95rem] leading-relaxed">{p.text}</p>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .pc { background: var(--color-paper); transition: color 0.6s var(--ease-out-expo), border-color 0.6s; isolation: isolate; }
+  .pc::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--color-forest); clip-path: circle(0% at 100% 0%); transition: clip-path 0.9s var(--ease-in-out-quart); }
+  .pc:hover { color: var(--color-paper); border-color: var(--color-forest); }
+  .pc:hover::before { clip-path: circle(150% at 100% 0%); }
+  .pc-n { color: var(--color-bronze); transition: color 0.6s; }
+  .pc:hover .pc-n { color: var(--color-bronze-light); }
+  .pc-text { color: var(--color-muted); transition: color 0.6s; }
+  .pc:hover .pc-text { color: rgb(243 239 228 / 0.72); }
+  .pc :global(.pc-mark) { color: color-mix(in oklab, var(--color-ink) 22%, transparent); transition: color 0.6s, transform 1.2s var(--ease-out-expo); }
+  .pc:hover :global(.pc-mark) { color: var(--color-paper); transform: rotate(270deg); }
+</style>

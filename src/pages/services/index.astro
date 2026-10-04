@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Process from '../../components/Process.astro';
+import CTA from '../../components/CTA.astro';
+import { services } from '../../data/services';
+---
+<Base title="Services" description="Website design & development, custom web applications, UI/UX, business automation & CRM, AI solutions and website support — DEVORA & Co., Abu Dhabi.">
+  <PageHeader label="Services" meta="06 disciplines" lines={['Everything your', 'business needs']} accent="to lead online." intro="Six connected disciplines delivered by one senior team. Engage us for a single service or a complete digital transformation." />
+
+  <section class="bg-paper pb-28 md:pb-40" data-tone="light">
+    <div class="wrap grid gap-x-8 gap-y-16 md:grid-cols-2 md:gap-y-24">
+      {services.map((s, i) => (
+        <a href={`/services/${s.slug}/`} class:list={['svc-card group block', i % 2 === 1 && 'md:mt-28']} data-cursor="view" data-cursor-label="Explore">
+          <div class="frame aspect-[16/11] rounded-[4px]" data-clip>
+            <img src={s.image} alt="" loading="lazy" width="1600" height="1100" data-parallax="6" />
+            <span class="label absolute left-5 top-5 rounded-full bg-paper/90 px-3 py-1.5 text-ink">{s.n}</span>
+          </div>
+          <div class="mt-6" data-reveal>
+            <h2 class="text-[1.9rem] font-medium leading-[1.02] tracking-[-0.04em] transition-transform duration-700 group-hover:translate-x-2 md:text-[2.6rem]">{s.title}</h2>
+            <p class="mt-3 max-w-[46ch] text-muted">{s.short}</p>
+            <ul class="mt-5 flex flex-wrap gap-2">
+              {s.deliverables.slice(0, 4).map((d) => <li class="rounded-full border border-ink/15 px-3 py-1.5 text-[0.8rem]">{d}</li>)}
+            </ul>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <Process />
+  <CTA />
+</Base>
+
+<style>
+  .svc-card:hover img { filter: brightness(0.92); }
+</style>

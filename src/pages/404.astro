@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
+---
+<Base title="Page not found">
+  <section class="grid min-h-svh place-items-center bg-forest text-paper" data-tone="dark">
+    <div class="wrap flex flex-col items-center text-center">
+      <Mark class="h-24 w-24 animate-[spin_12s_linear_infinite] text-paper" weight={28} />
+      <p class="label mt-10 text-bronze-light">Error 404</p>
+      <h1 class="h-lg display mt-4">Out of <span class="serif text-bronze-light">orbit.</span></h1>
+      <p class="mt-6 max-w-[38ch] text-paper/70">The page you’re looking for has moved or never existed.</p>
+      <a href="/" class="btn btn-light mt-10">Back to home <span class="arrow">→</span></a>
+    </div>
+  </section>
+</Base>

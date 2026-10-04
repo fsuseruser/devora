@@ -1,0 +1,17 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site } from '../data/site';
+---
+<Legal title="Terms of Use" updated="October 2026">
+  <p>These template terms govern use of the {site.name} website. Please have them reviewed by a legal professional before publishing.</p>
+  <h2>Use of this website</h2>
+  <p>Content on this site is provided for general information about our services. You agree not to misuse the site or attempt to interfere with its operation.</p>
+  <h2>Intellectual property</h2>
+  <p>All design, text, graphics and code on this site belong to {site.name} or its licensors unless stated otherwise.</p>
+  <h2>Project engagements</h2>
+  <p>Client projects are governed by separate written agreements, which take precedence over these terms.</p>
+  <h2>Governing law</h2>
+  <p>These terms are governed by the laws of the Emirate of Abu Dhabi and the federal laws of the United Arab Emirates.</p>
+  <h2>Contact</h2>
+  <p>Questions? Email <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</Legal>

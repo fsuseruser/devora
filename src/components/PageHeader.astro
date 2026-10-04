@@ -1,0 +1,18 @@
+---
+interface Props { label: string; lines: string[]; accent?: string; intro?: string; meta?: string }
+const { label, lines, accent, intro, meta } = Astro.props;
+---
+<section class="relative bg-paper pt-36 pb-16 md:pt-48 md:pb-24" data-tone="light">
+  <div class="wrap">
+    <div class="flex items-center justify-between" data-reveal>
+      <p class="label flex items-center gap-2 text-muted"><span class="inline-block h-1.5 w-1.5 rounded-full bg-bronze"></span>{label}</p>
+      {meta && <p class="label text-muted">{meta}</p>}
+    </div>
+    <h1 class="h-xl display mt-8 max-w-[16ch]" data-lines>
+      {lines.map((l) => <span class="line-mask"><span>{l}</span></span>)}
+      {accent && <span class="line-mask"><span class="serif text-forest">{accent}</span></span>}
+    </h1>
+    {intro && <p class="lead mt-10 max-w-[52ch] text-ink/70 md:ml-[33%]" data-reveal>{intro}</p>}
+    <slot />
+  </div>
+</section>

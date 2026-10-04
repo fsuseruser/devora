@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import WorkCard from '../../components/WorkCard.astro';
+import CTA from '../../components/CTA.astro';
+import { projects, categories } from '../../data/projects';
+const count = (id: string) => (id === 'all' ? projects.length : projects.filter((p) => p.categories.includes(id as any)).length);
+---
+<Base title="Work" description="Selected websites, web applications, UI/UX, automation and AI projects by DEVORA & Co., Abu Dhabi.">
+  <PageHeader label="Selected work" meta={`${projects.length} projects`} lines={['Considered work,']} accent="built to perform." intro="A selection of websites, platforms and systems designed and engineered for ambitious companies across the UAE." />
+
+  <section class="bg-paper pb-28 md:pb-40" data-tone="light">
+    <div class="wrap">
+      <div class="sticky top-[84px] z-20 -mx-2 mb-12 overflow-x-auto px-2 md:mb-16" data-reveal>
+        <div class="filter-bar relative inline-flex gap-1 rounded-full border border-ink/12 bg-paper/85 p-1 backdrop-blur-md" data-filter-bar role="toolbar" aria-label="Filter projects">
+          <span class="filter-pill absolute left-0 top-1 bottom-1 rounded-full bg-ink" data-filter-pill aria-hidden="true"></span>
+          {categories.map((c, i) => (
+            <button type="button" class="filter-btn relative z-10 whitespace-nowrap rounded-full px-4 py-2.5 text-sm md:px-5" data-filter={c.id} aria-pressed={i === 0 ? 'true' : 'false'}>
+              {c.label} <sup class="ml-0.5 font-mono text-[0.62rem] opacity-60">{count(c.id)}</sup>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div class="grid gap-x-8 gap-y-16 md:grid-cols-2 md:gap-y-24" data-filter-grid>
+        {projects.map((p, i) => <WorkCard project={p} index={i} aspect="aspect-[16/11]" />)}
+      </div>
+      <p class="py-20 text-center text-muted" data-filter-empty hidden>No projects in this category yet.</p>
+    </div>
+  </section>
+
+  <CTA title="Your project" accent="could be next." />
+</Base>
+
+<style>
+  .filter-pill { transition: transform 0.7s var(--ease-out-expo), width 0.7s var(--ease-out-expo); }
+  .filter-btn { transition: color 0.5s; }
+  .filter-btn[aria-pressed='true'] { color: var(--color-paper); }
+  .filter-btn:not([aria-pressed='true']):hover { color: var(--color-bronze); }
+  .filter-bar { scrollbar-width: none; }
+</style>

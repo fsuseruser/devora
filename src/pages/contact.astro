@@ -1,0 +1,109 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { services } from '../data/services';
+const budgets = ['< AED 25K', 'AED 25–75K', 'AED 75–150K', 'AED 150K +'];
+---
+<Base title="Contact" description="Start a project with DEVORA & Co. — digital studio in Abu Dhabi.">
+  <section class="bg-paper pt-36 pb-24 md:pt-48 md:pb-36" data-tone="light">
+    <div class="wrap grid gap-16 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="label flex items-center gap-2 text-muted" data-reveal><span class="inline-block h-1.5 w-1.5 rounded-full bg-bronze"></span>Contact</p>
+        <h1 class="h-xl display mt-8" data-lines>
+          <span class="line-mask"><span>Let’s build</span></span>
+          <span class="line-mask"><span>something</span></span>
+          <span class="line-mask"><span class="serif text-forest">remarkable.</span></span>
+        </h1>
+        <p class="lead mt-10 max-w-[40ch] text-ink/70" data-reveal>Share a few details and we’ll come back within one business day with next steps.</p>
+
+        <dl class="mt-14 space-y-7 border-t border-ink/15 pt-8">
+          <div data-reveal><dt class="label text-muted">Email</dt><dd class="mt-2 text-xl"><a class="ulink" href={`mailto:${site.email}`}>{site.email}</a></dd></div>
+          <div data-reveal><dt class="label text-muted">Phone / WhatsApp</dt><dd class="mt-2 text-xl"><a class="ulink" href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener">{site.phone}</a></dd></div>
+          <div data-reveal><dt class="label text-muted">Studio</dt><dd class="mt-2 text-lg">{site.address.line1}, {site.address.city}<br />{site.address.country}</dd></div>
+          <div data-reveal><dt class="label text-muted">Hours</dt><dd class="mt-2 text-lg">{site.hours} · now <span class="font-mono" data-clock>--:--</span></dd></div>
+        </dl>
+      </div>
+
+      <form id="contact-form" class="cform md:col-span-6 md:col-start-7" data-endpoint={site.formEndpoint} data-email={site.email} novalidate>
+        <fieldset data-reveal>
+          <legend class="label mb-4 text-muted">I’m interested in</legend>
+          <div class="flex flex-wrap gap-2">
+            {services.map((s) => (
+              <label class="chip"><input type="checkbox" name="services" value={s.title} class="sr-only" /><span>{s.title.replace(' & CRM Integration', ' & CRM')}</span></label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div class="mt-12 grid gap-x-6 md:grid-cols-2">
+          <label class="field" data-reveal><input name="name" required autocomplete="name" placeholder=" " /><span>Your name *</span></label>
+          <label class="field" data-reveal><input name="email" type="email" required autocomplete="email" placeholder=" " /><span>Email *</span></label>
+          <label class="field" data-reveal><input name="company" autocomplete="organization" placeholder=" " /><span>Company</span></label>
+          <label class="field" data-reveal><input name="phone" type="tel" autocomplete="tel" placeholder=" " /><span>Phone</span></label>
+        </div>
+
+        <fieldset class="mt-10" data-reveal>
+          <legend class="label mb-4 text-muted">Estimated budget</legend>
+          <div class="flex flex-wrap gap-2">
+            {budgets.map((b) => <label class="chip"><input type="radio" name="budget" value={b} class="sr-only" /><span>{b}</span></label>)}
+          </div>
+        </fieldset>
+
+        <label class="field mt-6 block" data-reveal><textarea name="message" rows="4" required placeholder=" "></textarea><span>Tell us about your project *</span></label>
+
+        <div class="mt-10 flex flex-col gap-5 md:flex-row md:items-center md:justify-between" data-reveal>
+          <p class="max-w-[34ch] text-sm text-muted">By sending, you agree to our <a href="/privacy/" class="underline">privacy policy</a>.</p>
+          <button type="submit" class="btn btn-dark !px-8 !py-5" data-magnetic>Send enquiry <span class="arrow">→</span></button>
+        </div>
+        <p class="form-status mt-6 text-sm" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .chip span { display: inline-block; padding: 0.6rem 1rem; border-radius: 999px; border: 1px solid color-mix(in oklab, var(--color-ink) 18%, transparent); font-size: 0.9rem; cursor: pointer; transition: all 0.4s var(--ease-out-expo); }
+  .chip:hover span { border-color: var(--color-ink); }
+  .chip input:checked + span { background: var(--color-forest); border-color: var(--color-forest); color: var(--color-paper); }
+  .chip input:focus-visible + span { outline: 2px solid var(--color-bronze); outline-offset: 2px; }
+  .field { position: relative; display: block; padding-top: 1.4rem; margin-bottom: 1.4rem; }
+  .field input, .field textarea { width: 100%; background: transparent; border: 0; border-bottom: 1px solid color-mix(in oklab, var(--color-ink) 22%, transparent); padding: 0.6rem 0; font-size: 1.15rem; outline: none; resize: vertical; transition: border-color 0.4s; }
+  .field input:focus, .field textarea:focus { border-color: var(--color-forest); }
+  .field span { position: absolute; left: 0; top: 2rem; color: var(--color-muted); pointer-events: none; transform-origin: left; transition: transform 0.5s var(--ease-out-expo), color 0.4s; }
+  .field input:focus + span, .field input:not(:placeholder-shown) + span, .field textarea:focus + span, .field textarea:not(:placeholder-shown) + span { transform: translateY(-1.7rem) scale(0.78); color: var(--color-bronze); }
+  .field .invalid { border-color: #a3402e; }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = form?.querySelector('.form-status') as HTMLElement | null;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    let ok = true;
+    form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]').forEach((f) => {
+      const bad = !f.value.trim() || (f.type === 'email' && !/^\S+@\S+\.\S+$/.test(f.value));
+      f.classList.toggle('invalid', bad);
+      if (bad) ok = false;
+    });
+    if (!ok) { if (status) status.textContent = 'Please complete the required fields.'; return; }
+    const data = new FormData(form);
+    const endpoint = form.dataset.endpoint;
+    if (endpoint) {
+      if (status) status.textContent = 'Sending…';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error();
+        form.reset();
+        if (status) status.textContent = 'Thank you — we’ll be in touch within one business day.';
+      } catch {
+        if (status) status.textContent = 'Something went wrong. Please email us directly.';
+      }
+      return;
+    }
+    const lines = [
+      `Name: ${data.get('name')}`, `Email: ${data.get('email')}`, `Company: ${data.get('company') || '-'}`, `Phone: ${data.get('phone') || '-'}`,
+      `Services: ${data.getAll('services').join(', ') || '-'}`, `Budget: ${data.get('budget') || '-'}`, '', String(data.get('message')),
+    ];
+    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('New project enquiry — ' + data.get('name'))}&body=${encodeURIComponent(lines.join('\n'))}`;
+    if (status) status.textContent = 'Opening your email app…';
+  });
+</script>
